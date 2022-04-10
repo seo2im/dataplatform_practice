@@ -1,15 +1,16 @@
 services:
   db:
     container_name: db
-    image: postgres:alpine
+    build:
+      context: ./db
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: "${DB_ID}"
       POSTGRES_PASSWORD: "${DB_PASSWORD}"
-
+      POSTGRES_DB: "${DB_NAME}"
     volumes:
-      - ./db/init:/var/lib/postgressql/data
+      - ./db/data:/var/lib/postgressql/data
   
   client:
     container_name: client
@@ -30,6 +31,7 @@ services:
     environment:
       DB_ID: "${DB_ID}"
       DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: ${DB_NAME}"
       DB_HOST: 'db'
 
     volumes:

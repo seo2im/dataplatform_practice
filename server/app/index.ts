@@ -5,9 +5,12 @@ const app = express();
 
 app.get('/', (req, res) => res.send('hello world1'));
 app.get('/api/hello', (req, res) => {
-  res.send({
-    hello: 'hello world2'
-  });
+  res.send('test')
 });
+app.get('/api/test', (req, res) => {
+  res.send('test')
+})
+
+
 
 app.listen(3000, () => console.log('Connect'));
