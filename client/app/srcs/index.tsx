@@ -1,36 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import theme from './theme';
+import ContextProvider from './context';
+import { Home, Login } from './pages';
 
 const App: React.FC = () => {
-  const [name, setName] = useState<string>('');
-  const [file, setFile] = useState(null);
-
-  const submit = e => {
-    e.preventDefault()
-    console.log(file)
-    const formData = new FormData();
-    formData.append('file', file);
-    console.log(formData)
-    fetch('/api/datas', {
-      method: 'POST',
-      body: formData
-    }).then(res => console.log(res))
-    .catch(err => console.log(err))
-  }
-  const filing = e => {
-    setFile(e.target.files[0]);
-  }
 
   return (
     <div>
-      <form>
-        <input type='text'
-          value={name}
-          onChange={e => setName(e.target.value)}/>
-        <input type='file'
-          onChange={e => filing(e)}/>
-        <button onClick={e => submit(e)}>Submit</button>
-      </form>
+    <ContextProvider>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </ContextProvider>
     </div>
   )
 };
