@@ -19,8 +19,8 @@ export const postdatas: [string, any, any] = [
   '/datas',
   uploadMiddleware.single('file'),
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userid } = req.query;
-    const { filename } = req.body;
+    const { userid, filename } = req.query;
+
     try {
       addDatas(parseInt(userid as string), filename as string, `/public/${filename}`);
       res.json({ msg: 'OK' });

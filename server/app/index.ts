@@ -3,8 +3,6 @@ import bodyParser from 'body-parser';
 import router from './router/router'
 import { errorHandler } from './middleware';
 
-
-
 const app = express();
 app.use('/public', express.static(`${__dirname}/public`));
 app.use(bodyParser.json());

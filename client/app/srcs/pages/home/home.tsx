@@ -12,10 +12,11 @@ const useAuth = (navigate, userInfo) => {
     else userInfo.setId(id);
   }, []);
   useEffect(() => {
+    console.log(userInfo.id);
     if (userInfo.id !== null) setLoading(false);
   }, [ userInfo.id ])
 
-  return { loading };
+  return loading;
 }
 
 const Home: React.FC = () => {
@@ -29,7 +30,7 @@ const Home: React.FC = () => {
     const formData = new FormData();
     formData.append('file', file);
     
-    const response = await fetch('/api/datas', {
+    const response = await fetch(`/api/datas?userid=${userInfo.id}&filename=${file.filename}`, {
       method: 'post',
       body: formData,
     });
@@ -46,7 +47,7 @@ const Home: React.FC = () => {
   return (
     <style.div>
       <input type='file' onChange={e => setFile(e.target.files[0])}/>
-      <button onClick={submit} />
+      <button onClick={submit}>upload</button>
     </style.div>
   )
 };

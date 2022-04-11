@@ -18,6 +18,7 @@ export const postusers: [string, any] = [
   '/users',
   async (req: Request, res: Response, next: NextFunction) => {
     const { name } = req.body;
+    
     try {
       await addUsers(name);
       res.json({ msg: 'OK' });

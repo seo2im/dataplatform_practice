@@ -5,9 +5,14 @@ import * as style from './style';
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
-  const signUp = useCallback(async () => {
+  const signUp = useCallback(async (name) => {
+    console.log(name)
     const response = await fetch('/api/users', {
-      method: 'post', body: name
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name })
     });
     if (response.status === 500) {
       const { msg } = await response.json();
@@ -17,11 +22,9 @@ const Login: React.FC = () => {
       alert('SignUP OK!');
     }
   }, []);
-  const signIn = useCallback(async () => {
+  const signIn = useCallback(async (name) => {
     const response = await fetch(`/api/users?name=${name}`);
-    console.log(response);
     const data = await response.json();
-    console.log(data)
     if (response.status === 500) {
       console.log(data.msg);
       alert('Some Error');
@@ -33,8 +36,8 @@ const Login: React.FC = () => {
   return (
     <style.div>
       <input value={name} onChange={e => setName(e.target.value)} />
-      <button onClick={() => signIn()}>로그인</button>
-      <button onClick={() => signUp()}>회원가입</button>
+      <button onClick={() => signIn(name)}>로그인</button>
+      <button onClick={() => signUp(name)}>회원가입</button>
     </style.div>
   )
 };

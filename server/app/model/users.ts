@@ -8,5 +8,5 @@ export const getUsers = async (name?: string) => {
   }
 };
 export const addUsers = async (name: string) => {
-  return await db.none('INSERT INTO Users(name) VALUES($1)', [name]);
+  return await db.none(`INSERT INTO Users(name) VALUES(${name})`);
 };
