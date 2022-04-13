@@ -37,4 +37,12 @@ services:
     volumes:
       - ./server/app:/usr/app
       - /usr/app/node_modules
-
+  mq:
+    container_name: mq
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 8080:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
