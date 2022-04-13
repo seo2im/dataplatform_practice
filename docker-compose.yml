@@ -21,11 +21,11 @@ services:
     volumes:
       - ./client/app:/usr/app
       - /usr/app/node_modules
-  
-  server:
-    container_name: server
+
+  restserver:
+    container_name: restserver
     build:
-      context: ./server
+      context: ./restserver
     ports:
       - 3000:3000
     environment:
@@ -33,10 +33,25 @@ services:
       DB_PASSWORD: "${DB_PASSWORD}"
       DB_NAME: ${DB_NAME}"
       DB_HOST: 'db'
-
     volumes:
-      - ./server/app:/usr/app
+      - ./restserver/app:/usr/app
       - /usr/app/node_modules
+
+  taskserver:
+    container_name: taskserver
+    build:
+      context: ./taskserver
+    ports:
+      - 5000:5000
+    environment:
+      FLASK_ENV: development
+      DB_ID: "${DB_ID}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: ${DB_NAME}"
+      DB_HOST: 'db'
+    volumes:
+      - ./taskserver/app:/usr/app
+
   mq:
     container_name: mq
     image: rabbitmq:3-management
