@@ -16,7 +16,12 @@ module.exports = merge(common, {
         port: 4000,
         proxy: {
             '/api': {
-                target: 'http://restserver:3000',
+                target: 'http://gateway:80',
+                changeOrigin: true,
+                secure: false
+            },
+            '/task': {
+                target: 'http://gateway:80',
                 changeOrigin: true,
                 secure: false
             },

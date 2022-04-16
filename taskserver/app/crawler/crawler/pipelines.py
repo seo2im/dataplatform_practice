@@ -6,8 +6,12 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+from model.connect import get_connection
+from model.data import insert_data
 
 
 class CrawlerPipeline:
     def process_item(self, item, spider):
+        conn = get_connection()
+        insert_data(conn, item)
         return item

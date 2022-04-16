@@ -18,12 +18,7 @@ const useAuth = (navigate, userInfo) => {
 
   return loading;
 }
-
-const Home: React.FC = () => {
-  const userInfo = useContext(Store);
-  const navigate = useNavigate();
-  const loading = useAuth(navigate, userInfo);
-  
+const useFile = (userInfo) => {
   const [file, setFile] = useState(null);
   const submit = useCallback(async (e: React.Event) => {
     e.preventDefault();
@@ -42,12 +37,33 @@ const Home: React.FC = () => {
       alert('Data upload clear');
     }
   });
+
+  return { setFile, submit }
+}
+
+const Home: React.FC = () => {
+  const userInfo = useContext(Store);
+  const navigate = useNavigate();
+  const loading = useAuth(navigate, userInfo);
+  const { setFile, submit } = useFile(userInfo);
   
+  const pingTest = () => {
+    fetch('/api').then(res => console.log(res));
+    fetch('/task').then(res => console.log(res));
+  }
+
   if (loading) return (<div>Loading</div>)
   return (
     <style.div>
+      <h1>Ping Test</h1>
+      <button onClick={() => pingTest()}>Ping</button>
+
+      <h1>File Send TEST</h1>
       <input type='file' onChange={e => setFile(e.target.files[0])}/>
       <button onClick={submit}>upload</button>
+
+      <h1>Crawling TEST</h1>
+
     </style.div>
   )
 };

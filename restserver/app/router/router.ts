@@ -7,11 +7,9 @@ const router = express.Router();
 router.use((req, res, next) => {
   next();
 })
-router.get('/test', (req, res) => {
-  client.sendTask("task.add", [1, 2])
-      .get(10000).then((data: any) => res.json({
-        data
-      }));
+
+router.get('/', (req, res) => {
+  res.send('Hello Rest Server')
 })
 
 router.get(...getusers);

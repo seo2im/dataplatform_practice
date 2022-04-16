@@ -22,6 +22,16 @@ services:
       - ./client/app:/usr/app
       - /usr/app/node_modules
 
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    ports:
+      - 80:80
+    depends_on:
+      - restserver
+      - taskserver
+
   restserver:
     container_name: restserver
     build:

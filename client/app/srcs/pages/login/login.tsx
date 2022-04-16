@@ -6,7 +6,6 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const signUp = useCallback(async (name) => {
-    console.log(name)
     const response = await fetch('/api/users', {
       method: 'post',
       headers: {
